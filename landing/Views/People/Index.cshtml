@@ -1,0 +1,60 @@
+﻿@model IEnumerable<landing.Models.Person>
+
+@{
+    ViewData["Title"] = "قائمة العملاء المحتملين";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using System.Globalization
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+
+@{
+    var isRTL = CultureInfo.CurrentCulture.Name.StartsWith("ar");
+}
+<h1> قائمة العملاء المحتملين</h1>
+
+<p>
+    <a asp-action="Create">@localizer["Create New"]</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @localizer["Name"]
+            </th>
+            <th>
+                @localizer["Email"]
+            </th>
+            <th>
+                @localizer["Phone"]
+            </th>
+            <th>
+                @localizer["City"]
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
